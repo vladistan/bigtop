@@ -18,6 +18,11 @@ set -ex
 
 . `dirname $0`/bigtop.bom
 
+echo "CLASSPATH!!!! ${CLASSPATH}"
+which java
+export CLASSPATH=/home/vlad/.ant/lib/jaxp-api-1.4.2.jar:/home/vlad/.ant/lib/ivy-2.5.2.jar
+echo "CLASSPATH!!!! ${CLASSPATH}"
+
 IVY_MIRROR_PROP=${IVY_MIRROR_PROP:-https://repo1.maven.org/maven2}
 BUILD_OPTS="-Dversion=${FULL_VERSION} -Dhadoop.version=${HADOOP_VERSION} \
             -Dexclude.from.war=nothing   \
@@ -29,7 +34,7 @@ BUILD_OPTS="-Dversion=${FULL_VERSION} -Dhadoop.version=${HADOOP_VERSION} \
 # FIXME: this needs to be fixed at the product level
 ant $BUILD_OPTS ivy-bootstrap
 
-ant $BUILD_OPTS clean
+#ant $BUILD_OPTS clean
 
 # Build source package
 (cd solr ; ant $BUILD_OPTS package-local-src-tgz "$@")
