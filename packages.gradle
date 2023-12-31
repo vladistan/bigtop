@@ -176,7 +176,7 @@ task "all-components" (description: "List the components of the stack") doLast {
 
 def genTasks = { target ->
   Task t = task "${target}-download" (dependsOn: "${target}_vardefines",
-      description: "Download $target artifacts",
+      description: "DownloaD $target artifacts",
       group: PACKAGES_GROUP) doLast {
 
     def final TARBALL_SRC = config.bigtop.components[target].tarball.source
@@ -194,7 +194,13 @@ def genTasks = { target ->
     if (!DOWNLOAD_URL && !(GIT_REPO && GIT_REF))
       return
 
+    println "Downlload wants: $TARBALL_SRC $TARBALL_DST $DOWNLOAD_DST $DOWNLOAD_URL"
     mkdir(DL_DIR)
+    if ( ! TARBALL_DST?.isEmpty() ) {
+      exec {
+        commandLine "aws s3 cp s3://vladster.org/bigtop/src/$TARBALL_SRC $DOWNLOAD_DST".split()
+      }
+    }
     if (TARBALL_DST?.isEmpty() || new File(DOWNLOAD_DST)?.exists() || new File(config.bigtop.components[target].targetdl)?.exists()) {
       println "\tFile $DOWNLOAD_DST appears to be already downloaded. Exiting..."
       return
