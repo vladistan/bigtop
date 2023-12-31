@@ -13,6 +13,7 @@ mvn --version
 
 python2 --version
 
+export HADOOP_SKIP_YETUS_VERIFICATION=true
 
 ./gradlew "${GO_JOB_NAME}" -Dbuildwithdeps=true -PparentDir=/usr/bigtop -PpkgSuffix
 
