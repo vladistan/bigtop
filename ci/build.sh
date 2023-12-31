@@ -4,12 +4,17 @@ set -e
 
 
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0/
-export PATH=$PATH:/usr/local/apache-maven-3.8.8/bin:/usr/local/pyenv/bin:/var/go/.pyenv/versions/2.7.18/bin
+
+export PATH=$PATH:/usr/local/apache-maven-3.8.8/bin
+export PATH=$PATH:/usr/local/pyenv/bin
+export PATH=$PATH:/var/go/.pyenv/versions/2.7.18/bin
+export PATH=$PATH:/usr/local/apache-ant-1.9.16/bin/
 
 echo "JOB: ${GO_JOB_NAME}"
 
 which mvn
 mvn --version
+ant -version
 
 python2 --version
 
